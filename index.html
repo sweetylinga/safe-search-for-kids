@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Safe Search for Kids</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive;
+      text-align: center;
+      background-color: #f0f8ff;
+      padding: 20px;
+    }
+    #search-container {
+      margin: 20px auto;
+      max-width: 500px;
+    }
+    #search-input {
+      padding: 12px;
+      width: 70%;
+      border: 2px solid #4CAF50;
+      border-radius: 20px;
+      font-size: 16px;
+    }
+    #search-btn {
+      padding: 12px 24px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    #no-results {
+      margin-top: 30px;
+    }
+    #no-results img {
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔍 Safe Search for Kids</h1>
+  
+  <div id="search-container">
+    <input type="text" id="search-input" placeholder="Search science, games, cartoons...">
+    <button id="search-btn">Search</button>
+  </div>
+  
+  <div id="results"></div>
+  <div id="no-results" style="display:none;"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
