@@ -1,0 +1,100 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f5f5f5;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+h1 {
+  text-align: center;
+  font-size: 24px;
+  color: #2c3e50;
+}
+
+.country {
+  font-weight: bold;
+  color: #3498db;
+}
+
+.search-container {
+  display: flex;
+  max-width: 500px;
+  margin: 0 auto 30px;
+}
+
+#search-input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px 0 0 4px;
+  font-size: 16px;
+}
+
+#search-btn {
+  padding: 12px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#search-btn:hover {
+  background-color: #2980b9;
+}
+
+/* Under Construction Styles */
+.construction-container {
+  text-align: center;
+  margin-top: 50px;
+  padding: 30px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  max-width: 600px;
+  margin: 30px auto;
+}
+
+.construction-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #e74c3c;
+}
+
+.construction-container p {
+  margin-bottom: 20px;
+  color: #7f8c8d;
+}
+
+.refresh-message {
+  font-style: italic;
+  color: #95a5a6;
+  margin-top: 20px;
+}
+
+/* Results styles */
+.result-item {
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}

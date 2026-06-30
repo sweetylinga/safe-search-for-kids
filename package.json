@@ -1,0 +1,19 @@
+{
+  "name": "safe-search-for-kids-main",
+  "version": "1.0.0",
+  "description": "A kid-friendly safe search platform that filters out inappropriate, explicit, and violent content to provide a secure online experience for children.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "openai": "^6.45.0"
+  }
+}
