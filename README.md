@@ -1,64 +1,152 @@
-# Safe Surfing System for Kids 👶🌐
+# 🔍 Safe Search for Kids
 
-A kid-friendly safe search platform that filters out inappropriate, explicit, and violent content to provide a secure online experience for children.
+A kid-friendly search platform that filters inappropriate content and provides safe educational resources for children.
 
----
+## 🌐 Live Demo
 
-## 🚀 Features
-
-- Blocks explicit and adult content from search results
-- Blurs NSFW or violent images
-- Frontend and backend integrated using Node.js, Express, and HTML/CSS/JS
-- Safe Search powered by content filtering and moderation
+https://safe-search-api.onrender.com
 
 ---
 
-## 🛠️ Installation & Setup
+## ✨ Features
 
-### 1. Clone the repository
+- 🛡️ AI-powered content moderation using OpenAI
+- 👶 Safe search experience designed for children
+- 🚫 Blocks inappropriate, explicit and harmful searches
+- 📚 Returns educational resources for approved topics
+- 🖼️ Displays kid-friendly images
+- 🌍 Responsive web interface
+- ⚡ Fast Express.js backend
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- HTML5
+- CSS3
+- JavaScript
+
+### Backend
+- Node.js
+- Express.js
+
+### APIs
+- OpenAI Moderation API
+
+### Deployment
+- Render
+
+---
+
+## 📂 Project Structure
+
+```
+safe-search-for-kids/
+│
+├── public/
+│   ├── images/
+│   ├── index.html
+│   ├── script.js
+│   └── css/
+│
+├── server/
+│   ├── app.js
+│   └── safety-check.js
+│
+├── package.json
+├── package-lock.json
+└── README.md
+```
+
+---
+
+## ⚙️ Installation
+
+### Clone Repository
 
 ```bash
-git clone https://github.com/your-username/safe-surfing-system.git
-cd safe-surfing-system
+git clone https://github.com/sweetylinga/safe-search-for-kids.git
+```
 
-#2.Install dependencies
+### Install Dependencies
+
+```bash
 npm install
+```
 
-#3.Create a .env file
-You must create your own .env file in the root directory with the following variables:
-PORT=3000
-OPENAI_API_KEY=your_openai_api_key_here
-MONGODB_URI=your_mongodb_connection_string
+### Create .env
 
-#4. Start the server
+```env
+OPENAI_API_KEY=your_openai_api_key
+PORT=4000
+```
+
+### Run Project
+
+```bash
 npm start
+```
 
-Or, if you're using nodemon:
-Copy code
-npx nodemon server.js
+Open:
 
-#project structure
-safe-surfing-system/
-│
-├── public/              # Static assets (CSS, JS, Images)
-├── views/               # HTML Templates (EJS or static HTML)
-├── routes/              # Route handling (if any)
-├── server.js            # Main backend logic
-├── .env                 # (Should NOT be committed)
-├── .gitignore
-└── package.json
+```
+http://localhost:4000
+```
 
-🧠 How It Works
-Filters search queries through a blocklist and OpenAI moderation API
+---
 
-Uses image analysis to detect and blur NSFW/violent content
+## 🔒 How it Works
 
-Designed with safety and speed in mind for child users
+1. User enters a search query.
+2. Backend validates the request.
+3. OpenAI Moderation API checks whether the query is safe.
+4. If unsafe, the content is blocked.
+5. If safe and available in the educational dataset, the application returns a kid-friendly educational resource.
+6. Otherwise, the application informs the user that the page is under construction.
 
+---
 
-🛡️ Security & Safety
-No explicit words are stored in source code
+## 📸 Screenshots
 
-.env protects sensitive API keys
+### Home Page
 
-Kid-safe and privacy-respecting filtering logic
+- Search interface
+- Kid-friendly design
+
+### Search Result
+
+- Educational image
+- Safe website link
+
+### Blocked Content
+
+- Displays a blocked content warning for inappropriate searches.
+
+---
+
+## 📌 Future Enhancements
+
+- Google Custom Search integration
+- Voice Search
+- Category filtering
+- Search history
+- Parent Dashboard
+- User Authentication
+- AI-generated educational summaries
+- Multi-language support
+
+---
+
+## 👩‍💻 Author
+
+**Linga Srilaxmi**
+
+GitHub:
+https://github.com/sweetylinga
+
+---
+
+## ⭐ If you like this project
+
+Give this repository a ⭐ on GitHub!
