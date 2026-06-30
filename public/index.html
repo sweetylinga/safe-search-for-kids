@@ -1,169 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Safe Search for Kids</title>
-  <style>
-    body {
-      font-family: 'Comic Sans MS', cursive;
-      text-align: center;
-      background-color: #f0f8ff;
-      padding: 20px;
-    }
-    h1 {
-      margin-bottom: 20px;
-    }
-    #search-container {
-      margin: 0 auto 20px;
-      max-width: 500px;
-    }
-    #search-input {
-      padding: 12px;
-      width: 70%;
-      border: 2px solid #4CAF50;
-      border-radius: 20px;
-      font-size: 16px;
-    }
-    #search-btn {
-      padding: 12px 24px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-top: 10px;
-    }
-    #no-results {
-      margin-top: 30px;
-    }
-    .construction-container {
-      margin-top: 50px;
-      padding: 20px;
-    }
-    .construction-title {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .divider {
-      height: 1px;
-      background-color: #000;
-      margin: 15px auto;
-      width: 80%;
-    }
-    .refresh-message {
-      font-style: italic;
-      margin-top: 15px;
-    }
-    /* Added blocked content styles */
-    .blocked-container {
-      margin-top: 30px;
-      padding: 20px;
-      background-color: #ffe6e6;
-      border-radius: 10px;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .blocked-image {
-      width: 100px;
-      margin-bottom: 15px;
-    }
-  </style>
-</head>
-<body>
-  <h1>🔍 Safe Search for Kids</h1>
-    <div id="search-container">
-    <input type="text" id="search-input" placeholder="Search science, games, cartoons...">
-    <button id="search-btn">Search</button>
-  </div>
-  
-  <div id="results"></div>
-  <div id="no-results" style="display:none;"></div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safe Search for Kids</title>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const searchBtn = document.getElementById('search-btn');
-      const searchInput = document.getElementById('search-input');
-      const resultsDiv = document.getElementById('results');
-      const noResultsDiv = document.getElementById('no-results');
-
-      const performSearch = async () => {
-        const query = searchInput.value.trim();
-        resultsDiv.innerHTML = '';
-        noResultsDiv.style.display = 'none';
-
-        if (!query) return;
-
-        try {
-          const response = await fetch('http://localhost:4000/api/check-safety', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ query })
-          });
-
-          const { safe, result, reason } = await response.json();
-
-          if (!safe && reason === 'under_construction') {
-            showUnderConstruction();
-          } else if (!safe) {
-            showBlockedMessage(reason);
-          } else if (result) {
-            showResult(result);
-          } else {
-            showUnderConstruction();
-          }
-
-        } catch (error) {
-          showUnderConstruction();
+    <style>
+        body {
+            font-family: "Comic Sans MS", cursive;
+            background: #f0f8ff;
+            text-align: center;
+            padding: 20px;
         }
-      };
 
-      function showUnderConstruction() {
-        resultsDiv.innerHTML = `
-          <div class="construction-container">
-            <div class="construction-title">PAGE</div>
-            <div class="construction-title">UNDER CONSTRUCTION</div>
-            <div class="divider"></div>
-            <div>Under Construction</div>
-            <div class="refresh-message">Page will refresh in 3 seconds...</div>
-          </div>
-        `;
-        
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
-      }
+        h1 {
+            color: #333;
+        }
 
-      function showBlockedMessage(reason) {
-        noResultsDiv.innerHTML = `
-          <div class="blocked-container">
-            <img src="/images/blocked.png" class="blocked-image" alt="Blocked Content">
-            <div class="construction-title">CONTENT BLOCKED</div>
-            <div>This search contains inappropriate content</div>
-          </div>
-        `;
-        noResultsDiv.style.display = 'block';
-      }
+        #search-container {
+            margin: 30px auto;
+            max-width: 600px;
+        }
 
-      function showResult(item) {
-        resultsDiv.innerHTML = `
-          <div class="result-item">
-            ${item.image ? `<img src="${item.image}" alt="${item.title}" style="max-width: 500px; margin-bottom: 50px;">` : ''}
-            <h3>${item.title}</h3>
-            <a href="${item.url}" target="_blank">Visit Site</a>
-          </div>
-        `;
-      }
+        #search-input {
+            width: 70%;
+            padding: 12px;
+            border: 2px solid #4CAF50;
+            border-radius: 20px;
+            font-size: 16px;
+            outline: none;
+        }
 
-      // Event listeners
-      searchBtn.addEventListener('click', performSearch);
-      searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') performSearch();
-      });
-    });
-  </script>
+        #search-btn {
+            padding: 12px 22px;
+            border: none;
+            border-radius: 20px;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+
+        #search-btn:hover {
+            background: #45a049;
+        }
+
+        #results {
+            margin-top: 40px;
+        }
+
+        .result-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 2px 10px rgba(0,0,0,.15);
+        }
+
+        .result-item img {
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .construction-container,
+        .blocked-container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: auto;
+            box-shadow: 0 2px 10px rgba(0,0,0,.15);
+        }
+
+        .construction-title {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .divider {
+            height: 1px;
+            background: #000;
+            margin: 20px auto;
+            width: 80%;
+        }
+
+        .blocked-image {
+            width: 120px;
+            margin-bottom: 20px;
+        }
+
+        .refresh-message {
+            margin-top: 15px;
+            font-style: italic;
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🔍 Safe Search for Kids</h1>
+
+<div id="search-container">
+    <input
+        type="text"
+        id="search-input"
+        placeholder="Search science, games, cartoons..."
+    >
+
+    <button id="search-btn">
+        Search
+    </button>
+</div>
+
+<div id="results"></div>
+
+<div id="no-results" style="display:none;"></div>
+
+<script src="script.js"></script>
+
 </body>
 </html>

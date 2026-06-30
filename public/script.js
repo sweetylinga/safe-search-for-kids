@@ -1,76 +1,132 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const searchBtn = document.getElementById('search-btn');
-  const searchInput = document.getElementById('search-input');
-  const resultsContainer = document.getElementById('results-container');
+    const searchBtn = document.getElementById('search-btn');
+    const searchInput = document.getElementById('search-input');
+    const resultsDiv = document.getElementById('results');
+    const noResultsDiv = document.getElementById('no-results');
 
-  const performSearch = async () => {
-    const query = searchInput.value.trim();
-    resultsContainer.innerHTML = '';
+    async function performSearch() {
+        const query = searchInput.value.trim();
 
-    if (!query) return;
+        resultsDiv.innerHTML = "";
+        noResultsDiv.style.display = "none";
 
-    try {
-      const response = await fetch('http://localhost:4000/api/check-safety', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query })
-      });
+        if (!query) return;
 
-      const { safe, result, reason } = await response.json();
+        try {
+            const response = await fetch(
+                "https://safe-search-api.onrender.com/api/check-safety",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ query })
+                }
+            );
 
-      if (!safe && reason === 'under_construction') {
-        showUnderConstruction();
-      } else if (!safe) {
-        showBlockedMessage(reason);
-      } else if (result) {
-        showResult(result);
-      } else {
-        showUnderConstruction();
-      }
+            if (!response.ok) {
+                throw new Error("Server Error");
+            }
 
-    } catch (error) {
-      console.error('Search error:', error);
-      showUnderConstruction();
+            const data = await response.json();
+
+            if (!data.safe && data.reason === "under_construction") {
+                showUnderConstruction();
+            } else if (!data.safe) {
+                showBlockedMessage(data.reason);
+            } else {
+                showResult(data.result);
+            }
+
+        } catch (err) {
+            console.error(err);
+            showUnderConstruction();
+        }
     }
-  };
 
-  const showUnderConstruction = () => {
-    resultsContainer.innerHTML = `
-      <div class="construction-container">
-        <h2>PAGE</h2>
-        <h2>UNDER CONSTRUCTION</h2>
-        <div class="divider"></div>
-        <p>Under Construction</p>
-        <p class="refresh-message">Page will refresh in 3 seconds...</p>
-      </div>
-    `;
-    
-    setTimeout(() => {
-      window.location.reload();
-    }, 3000);
-  };
+    function showResult(item) {
 
-  const showBlockedMessage = (reason) => {
-    resultsContainer.innerHTML = `
-      <div class="construction-container">
-        <h2>CONTENT BLOCKED</h2>
-        <p>This search contains ${reason} content</p>
-      </div>
-    `;
-  };
+        const imageUrl = item.image
+            ? `https://safe-search-api.onrender.com${item.image}`
+            : "";
 
-  const showResult = (item) => {
-    resultsContainer.innerHTML = `
-      <div class="result-item">
-        <h3>${item.title}</h3>
-        <a href="${item.url}" target="_blank">Visit Site</a>
-      </div>
-    `;
-  };
+        resultsDiv.innerHTML = `
+            <div class="result-item">
 
-  // Event listeners
-  searchBtn.addEventListener('click', performSearch);
-  searchInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') performSearch();
-  });
+                ${
+                    imageUrl
+                        ? `<img src="${imageUrl}" style="max-width:300px;margin-bottom:20px;">`
+                        : ""
+                }
+
+                <h2>${item.title}</h2>
+
+                <a href="${item.url}" target="_blank">
+                    Visit Website
+                </a>
+
+            </div>
+        `;
+    }
+
+    function showBlockedMessage(reason) {
+
+        noResultsDiv.innerHTML = `
+            <div class="blocked-container">
+
+                <img
+                    src="https://safe-search-api.onrender.com/images/blocked.png"
+                    class="blocked-image"
+                >
+
+                <h2>CONTENT BLOCKED</h2>
+
+                <p>
+                    This search contains inappropriate content.
+                </p>
+
+            </div>
+        `;
+
+        noResultsDiv.style.display = "block";
+    }
+
+    function showUnderConstruction() {
+
+        resultsDiv.innerHTML = `
+            <div class="construction-container">
+
+                <div class="construction-title">
+                    PAGE
+                </div>
+
+                <div class="construction-title">
+                    UNDER CONSTRUCTION
+                </div>
+
+                <div class="divider"></div>
+
+                <div>
+                    Under Construction
+                </div>
+
+                <div class="refresh-message">
+                    Page will refresh in 3 seconds...
+                </div>
+
+            </div>
+        `;
+
+        setTimeout(() => {
+            location.reload();
+        }, 3000);
+    }
+
+    searchBtn.addEventListener("click", performSearch);
+
+    searchInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            performSearch();
+        }
+    });
 });
